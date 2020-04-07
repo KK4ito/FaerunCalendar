@@ -1,0 +1,35 @@
+<div class="container">
+  <mat-card>
+    <p>
+      <mat-icon>calendar_today</mat-icon>
+    </p>
+    <mat-card-content>
+      <mat-card-title translate>Hello harptos !</mat-card-title>
+      <mat-card-subtitle>
+        <p>harptos works!</p>
+      </mat-card-subtitle>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab *ngFor="let item of getHarptosData()" label="{{ item.monthId }}.  {{ item.monthName }}">
+        <ng-template matTabContent>
+          <div class="container">
+            {{ item.monthDescription }}
+          </div>
+          <mat-grid-list cols="10" rowHeight="100px">
+            <mat-grid-tile
+              *ngFor="let day of counter(item.days); let i = index"
+              [colspan]="1"
+              [rowspan]="1"
+              (click)="openBottomSheet(item.monthId, i)"
+            >
+              <mat-card> Day {{ i + 1 }} </mat-card>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>
