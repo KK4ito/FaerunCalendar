@@ -7,6 +7,7 @@ import { FirebaseService } from '@app/firebase/firebase.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { CalendarEntry } from '@app/calender-entry-dialog/calender-entry-dialog.component';
 import { CalendarEventEmitterService } from '@app/calendar-event-emitter/calendar-event-emitter.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-harptos',
@@ -16,6 +17,7 @@ import { CalendarEventEmitterService } from '@app/calendar-event-emitter/calenda
 export class HarptosComponent implements OnInit, OnDestroy {
   private readonly _calendarData: HarptosMonth[];
   private _currentEvents: CalendarEntry[] = [];
+  private _subscription: Subscription;
 
   constructor(
     private _harptosService: HarptosService,
@@ -28,13 +30,13 @@ export class HarptosComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._firebaseService.getAllEntriesForCurrentMonth(1);
-    this._calendarEventEmitterService.calenderEntriesSubject.subscribe(
+    this._subscription = this._calendarEventEmitterService.calenderEntriesSubject.subscribe(
       (currentEvents) => (this._currentEvents = currentEvents)
     );
   }
 
   ngOnDestroy(): void {
-    this._calendarEventEmitterService.calenderEntriesSubject.unsubscribe();
+    this._subscription.unsubscribe();
   }
 
   getHarptosData() {
