@@ -12,6 +12,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CalenderEntryDialogComponent } from '@app/calender-entry-dialog/calender-entry-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { FirebaseService } from '@app/firebase/firebase.service';
 
 @NgModule({
   declarations: [ActionDaySheetComponent, CalenderEntryDialogComponent, HarptosComponent],

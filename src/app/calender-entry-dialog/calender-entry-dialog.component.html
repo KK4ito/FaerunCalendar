@@ -1,12 +1,16 @@
-<h1 mat-dialog-title>Hi {{ data.name }}</h1>
+<h1 mat-dialog-title>Add new entry for: {{ dialogTitle }}</h1>
 <div mat-dialog-content>
-  <p>What's your favorite animal?</p>
   <mat-form-field>
-    <mat-label>Favorite Animal</mat-label>
-    <input matInput [(ngModel)]="data.animal" />
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="calendarEntry.title" />
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <mat-label>Textarea</mat-label>
+    <textarea matInput [(ngModel)]="calendarEntry.content"></textarea>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="calendarEntry" cdkFocusInitial>Ok</button>
 </div>

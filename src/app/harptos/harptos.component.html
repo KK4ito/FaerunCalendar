@@ -12,7 +12,7 @@
   </mat-card>
 
   <mat-card>
-    <mat-tab-group mat-align-tabs="center">
+    <mat-tab-group mat-align-tabs="center" (selectedTabChange)="onTabChanged($event)">
       <mat-tab *ngFor="let item of getHarptosData()" label="{{ item.monthId }}.  {{ item.monthName }}">
         <ng-template matTabContent>
           <div class="container">
@@ -23,7 +23,8 @@
               *ngFor="let day of counter(item.days); let i = index"
               [colspan]="1"
               [rowspan]="1"
-              (click)="openBottomSheet(item.monthId, i)"
+              (click)="openBottomSheet(item, i)"
+              [style.background-color]="checkIfEntryExistForSpecificDay(i) ? 'red' : null"
             >
               Day {{ i + 1 }}
             </mat-grid-tile>
