@@ -1,8 +1,10 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Injectable } from '@angular/core';
-import { CalendarEntry } from '@app/calender-entry-dialog/calender-entry-dialog.component';
+import { CalendarEntry } from '@app/calender-entry-dialog/calendar-entry-dialog.component';
 import { CalendarEventEmitterService } from '@app/calendar-event-emitter/calendar-event-emitter.service';
+import { LoadingEventEmitterService } from '@app/loading-event-emitter/loading-event-emitter.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,10 @@ export class FirebaseService {
   readonly DB_COLLECTION_NAME_CALENDAR_ENTRY = 'calendarEntry';
   private _db: firebase.firestore.Firestore;
 
-  constructor(private _calendarEventEmitterService: CalendarEventEmitterService) {
+  constructor(
+    private _calendarEventEmitterService: CalendarEventEmitterService,
+    private _loadingEventEmitterServer: LoadingEventEmitterService
+  ) {
     this.initFirebaseWithConfig();
   }
 
@@ -40,17 +45,21 @@ export class FirebaseService {
       });
   }
 
-  createCalendarEntry(calendarEntry: any) {
-    this._db
+  createCalendarEntry(calendarEntry: any): Promise<boolean> {
+    this._loadingEventEmitterServer.startProgress();
+    return this._db
       .collection(this.DB_COLLECTION_NAME_CALENDAR_ENTRY)
       .add(calendarEntry)
       .then((docRef) => {
+        this._calendarEventEmitterService.pushNewEvent(calendarEntry);
         console.log('Document written with ID: ', docRef.id);
-        console.log('Document written with ID: ', docRef);
+        return true;
       })
       .catch((error) => {
         console.error('Error adding document: ', error);
-      });
+        return false;
+      })
+      .finally(() => this._loadingEventEmitterServer.stopProgress());
   }
 
   private initFirebaseWithConfig() {

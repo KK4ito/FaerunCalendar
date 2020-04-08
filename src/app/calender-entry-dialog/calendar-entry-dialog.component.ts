@@ -1,11 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { LoadingEventEmitterService } from '@app/loading-event-emitter/loading-event-emitter.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-calender-entry-dialog',
-  templateUrl: './calender-entry-dialog.component.html',
+  templateUrl: './calendar-entry-dialog.component.html',
+  styleUrls: ['./calendar-entry-dialog.component.scss'],
 })
-export class CalenderEntryDialogComponent implements OnInit {
+export class CalendarEntryDialogComponent {
   public dialogTitle: string;
   public calendarEntry: CalendarEntry = {
     monthId: -1,
@@ -14,7 +17,7 @@ export class CalenderEntryDialogComponent implements OnInit {
     content: '',
   };
 
-  constructor(public dialogRef: MatDialogRef<CalenderEntryDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(public dialogRef: MatDialogRef<CalendarEntryDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.dialogTitle = data.month.monthName + ' Day ' + (data.dayAsNumber + 1);
     this.calendarEntry.monthId = data.month.monthId;
     this.calendarEntry.day = data.dayAsNumber;
@@ -23,8 +26,6 @@ export class CalenderEntryDialogComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-  ngOnInit(): void {}
 }
 
 export interface CalendarEntry {

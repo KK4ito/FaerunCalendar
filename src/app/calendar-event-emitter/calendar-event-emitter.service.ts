@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CalendarEntry } from '@app/calender-entry-dialog/calender-entry-dialog.component';
+import { CalendarEntry } from '@app/calender-entry-dialog/calendar-entry-dialog.component';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
