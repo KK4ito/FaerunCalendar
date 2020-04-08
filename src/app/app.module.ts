@@ -15,6 +15,7 @@ import { ShellModule } from './shell/shell.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HarptosModule } from '@app/harptos/harptos.module';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -33,7 +34,7 @@ import { HarptosModule } from '@app/harptos/harptos.module';
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],
-  providers: [],
+  providers: [{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3881 } }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
