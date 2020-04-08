@@ -24,7 +24,7 @@
               [colspan]="1"
               [rowspan]="1"
               (click)="openBottomSheet(item, i)"
-              [style.background-color]="checkIfEntryExistForSpecificDay(i) ? 'red' : null"
+              [style.background-color]="checkIfEntryExistForSpecificDay(i) > 0 ? getColorShade(i) : null"
             >
               Day {{ i + 1 }}
             </mat-grid-tile>
