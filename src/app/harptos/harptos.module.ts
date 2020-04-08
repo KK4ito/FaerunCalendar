@@ -12,6 +12,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CalendarEntryDialogComponent } from '@app/calender-entry-dialog/calendar-entry-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [ActionDaySheetComponent, CalendarEntryDialogComponent, HarptosComponent],
@@ -24,6 +25,7 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     MatBottomSheetModule,
     MatDialogModule,
+    MatExpansionModule,
     HarptosRoutingModule,
     FormsModule,
   ],

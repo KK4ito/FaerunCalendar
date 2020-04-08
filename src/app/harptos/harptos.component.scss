@@ -13,7 +13,12 @@ q {
   quotes: "« " " »";
 }
 
-.mat-grid-tile {
-  border: solid 2px darkslategrey;
+.calendar-day {
+  border: solid 1px lightgray;
   cursor: pointer;
+}
+
+.extra-day {
+  padding: 0.5em;
+  margin-top: 1em;
 }

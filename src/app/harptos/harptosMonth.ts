@@ -4,3 +4,9 @@ export interface HarptosMonth {
   monthDescription: string;
   days: number;
 }
+
+export interface IrregularDays {
+  monthId: number;
+  dayName: string;
+  occursEveryXYear: number;
+}

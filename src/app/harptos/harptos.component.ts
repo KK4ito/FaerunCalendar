@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HarptosService } from '@app/harptos/harptos.service';
-import { HarptosMonth } from '@app/harptos/harptosMonth';
+import { HarptosMonth, IrregularDays } from '@app/harptos/harptosMonth';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
 import { ActionDaySheetComponent } from '@app/action-day-sheet/action-day-sheet.component';
 import { FirebaseService } from '@app/firebase/firebase.service';
@@ -19,6 +19,7 @@ import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/s
 export class HarptosComponent implements OnInit, OnDestroy {
   private readonly _redShades = ['#ff4c4c', '#ff2626', '#ff0000', '#b30000', '#660000'];
   private readonly _calendarData: HarptosMonth[];
+  private readonly _irregularDaysData: IrregularDays[];
   private _currentEvents: CalendarEntry[] = [];
   private _subscription: Subscription;
   private _loadingSubscription: Subscription;
@@ -33,6 +34,7 @@ export class HarptosComponent implements OnInit, OnDestroy {
     private _loadingEventEmitterService: LoadingEventEmitterService
   ) {
     this._calendarData = this._harptosService.calendarData;
+    this._irregularDaysData = this._harptosService.irregularDays;
   }
 
   ngOnInit(): void {
@@ -80,6 +82,13 @@ export class HarptosComponent implements OnInit, OnDestroy {
   checkIfEntryExistForSpecificDay(dayIndex: number): number {
     return this._currentEvents.filter((value) => value.day === dayIndex).length;
   }
+
+  checkIfExtraDaysExistForCurrentMonth(monthId: number): number {
+    return this._irregularDaysData.filter((value) => value.monthId === monthId).length;
+  }
+
+  getExtraDaysForCurrentMonth = (monthId: number) =>
+    this._irregularDaysData.filter((value) => value.monthId === monthId);
 
   getColorShade(dayIndex: number) {
     const eventsForSpecificDay = this._currentEvents.filter((value) => value.day === dayIndex).length;
