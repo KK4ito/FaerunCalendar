@@ -7,6 +7,7 @@ import {
 } from '@app/calender-entry-dialog/calendar-entry-dialog.component';
 import { FirebaseService } from '@app/firebase/firebase.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CalendarEntryListDialogComponent } from '@app/calender-entry-list-dialog/calendar-entry-list-dialog.component';
 
 @Component({
   selector: 'app-action-day-sheet',
@@ -29,7 +30,13 @@ export class ActionDaySheetComponent implements OnInit {
   viewEntries(event: MouseEvent): void {
     this._bottomSheetRef.dismiss();
     event.preventDefault();
-    this._firebaseService.getAllCalendarEntries();
+    this._firebaseService
+      .getAllCalendarEntriesForCurrentDayAndMonth(this.data.month.monthId, this.data.dayAsNumber)
+      .then((result) => {
+        this.dialog.open(CalendarEntryListDialogComponent, {
+          data: result,
+        });
+      });
   }
 
   addEntry(event: MouseEvent): void {

@@ -13,9 +13,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CalendarEntryDialogComponent } from '@app/calender-entry-dialog/calendar-entry-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { CalendarEntryListDialogComponent } from '@app/calender-entry-list-dialog/calendar-entry-list-dialog.component';
 
 @NgModule({
-  declarations: [ActionDaySheetComponent, CalendarEntryDialogComponent, HarptosComponent],
+  declarations: [
+    ActionDaySheetComponent,
+    CalendarEntryDialogComponent,
+    CalendarEntryListDialogComponent,
+    HarptosComponent,
+  ],
   imports: [
     CommonModule,
     TranslateModule,

@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { CalendarEntry } from '@app/calender-entry-dialog/calendar-entry-dialog.component';
 import { CalendarEventEmitterService } from '@app/calendar-event-emitter/calendar-event-emitter.service';
 import { LoadingEventEmitterService } from '@app/loading-event-emitter/loading-event-emitter.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -34,15 +33,19 @@ export class FirebaseService {
       });
   }
 
-  getAllCalendarEntries() {
-    this._db
+  getAllCalendarEntriesForCurrentDayAndMonth(monthId: number, dayAsNumber: number) {
+    const events: CalendarEntry[] = [];
+    return this._db
       .collection(this.DB_COLLECTION_NAME_CALENDAR_ENTRY)
+      .where('monthId', '==', monthId)
+      .where('day', '==', dayAsNumber)
       .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          console.log(doc.data());
+      .then((result) => {
+        result.docs.forEach((doc) => {
+          events.push(doc.data() as CalendarEntry);
         });
-      });
+      })
+      .then(() => events);
   }
 
   createCalendarEntry(calendarEntry: any): Promise<boolean> {
